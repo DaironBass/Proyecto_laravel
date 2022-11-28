@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Client extends Model
 {
     use HasFactory;
-    protected $filable = ['name','due','comments'];
+    protected $fillable = ['name','due','comments'];
     
 }
