@@ -15,7 +15,9 @@ class ClientController extends Controller
      */
     public function index()
     {
-        return view('client.index');
+        $clients = Client::paginate(5);
+        return view('client.index')
+                ->with('clients',$clients);
     }
 
     /**
@@ -38,12 +40,13 @@ class ClientController extends Controller
     {
         $request->validate([
             'name' => 'required|max:15',
-            'due' => 'required|gte:50'
+            'due' => 'required|gte:1'
         ]);
 
         $client = Client::create($request->only('name','due','comments'));
 
         Session::flash('mensaje', 'Registro creado con exito');
+
         return redirect()->route('client.index');
     }
 
@@ -66,7 +69,8 @@ class ClientController extends Controller
      */
     public function edit(Client $client)
     {
-        //
+        return view('client.form')
+                    ->with('client', $client);
     }
 
     /**
@@ -78,7 +82,20 @@ class ClientController extends Controller
      */
     public function update(Request $request, Client $client)
     {
-        //
+        $request->validate([
+            'name' => 'required|max:15',
+            'due' => 'required|gte:1'
+        ]);
+
+        $client->name = $request['name'];
+        $client->due = $request['due'];
+        $client->comments = $request['comments'];
+        $client->save();
+
+
+        Session::flash('mensaje', 'Registro editado con exito');
+
+        return redirect()->route('client.index');        
     }
 
     /**
@@ -89,6 +106,9 @@ class ClientController extends Controller
      */
     public function destroy(Client $client)
     {
-        //
+        $client->delete();
+        Session::flash('mensaje', 'Registro eliminado con exito');
+        
+        return redirect()->route('client.index'); 
     }
 }
