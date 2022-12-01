@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\ClientController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RegisterContoller;
+use App\Http\Controllers\SessionContoller;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +18,26 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
+
 });
 
 Route::resource('client', ClientController::class);
+
+/*login y registro*/
+Route::get('/register', [RegisterContoller::class, 'create'])
+    ->name('register.index');
+
+Route::post('/register', [RegisterContoller::class, 'store'])
+    ->name('register.store');
+    
+    
+Route::get('/login', [SessionContoller::class, 'create'])
+    ->name('login.index');
+
+Route::post('/login', [SessionContoller::class, 'store'])
+    ->name('login.store');
+   
+    
+
+
