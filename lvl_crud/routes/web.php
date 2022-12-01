@@ -37,6 +37,11 @@ Route::get('/login', [SessionContoller::class, 'create'])
 
 Route::post('/login', [SessionContoller::class, 'store'])
     ->name('login.store');
+
+Route::get('logout', [SessionContoller::class, 'destroy'])
+    ->name('login.destroy');    
+
+
    
     
 

@@ -6,9 +6,9 @@
     <div class="container py-5 text-center">
 
         @if (isset($client))
-            <h1>Editar cliente</h1>      
+        <p class="mb-4 text-2xl font-bold">Editar cliente</p>   
         @else
-            <h1>Crear cliente</h1>   
+        <p class="mb-4 text-2xl font-bold">Crear cliente</p>
         @endif
 
 
